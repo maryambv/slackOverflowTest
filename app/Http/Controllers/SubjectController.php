@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Subject;
 use Illuminate\Http\Request;
 
 class SubjectController extends Controller
@@ -13,28 +14,25 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        //
+        $subjects = Subject::all();
+
+        return $subjects;
     }
 
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
-    }
+        $subject = new Subject();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        $subject->title = $request->title;
+        $subject->isActive = $request->isActive;
+
+        $subject->save();
     }
 
     /**
@@ -45,18 +43,9 @@ class SubjectController extends Controller
      */
     public function show($id)
     {
-        //
-    }
+        $subject = Subject::find($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return $subject;
     }
 
     /**
@@ -68,7 +57,13 @@ class SubjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $subject = Subject::find($id);
+
+        $subject->title = $request->title;
+        $subject->isActive = $request->isActive;
+
+        $subject->save();
     }
 
     /**
@@ -79,6 +74,8 @@ class SubjectController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $subject = Subject::find($id);
+
+        $subject->delete();
     }
 }
