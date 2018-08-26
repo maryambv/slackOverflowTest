@@ -22,13 +22,14 @@ class QuestionController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
     {
         $question = new Question();
 
-        $question->subjectId = $request->subject;
+        $question->tags = $request->tags;
         $question->status = $request->status;
         $question->text = $request->text;
 
@@ -60,7 +61,7 @@ class QuestionController extends Controller
         $question = Question::find($id);
 
         $question->text = $request->text;
-        $question->text = $request->status;
+        $question->status = $request->status;
 
         $question->save();
     }

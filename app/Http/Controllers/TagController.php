@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Subject;
+use App\Tag;
 use Illuminate\Http\Request;
 
-class SubjectController extends Controller
+class TagController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        $subjects = Subject::all();
+        $tags = Tag::all();
 
-        return $subjects;
+        return $tags;
     }
 
     /**
@@ -27,12 +27,12 @@ class SubjectController extends Controller
      */
     public function create(Request $request)
     {
-        $subject = new Subject();
+        $tag = new Tag();
 
-        $subject->title = $request->title;
-        $subject->isActive = $request->isActive;
+        $tag->name = $request->name;
+        $tag->status = $request->status;
 
-        $subject->save();
+        $tag->save();
     }
 
     /**
@@ -43,9 +43,9 @@ class SubjectController extends Controller
      */
     public function show($id)
     {
-        $subject = Subject::find($id);
+        $tag = Tag::find($id);
 
-        return $subject;
+        return $tag;
     }
 
     /**
@@ -58,12 +58,12 @@ class SubjectController extends Controller
     public function update(Request $request, $id)
     {
 
-        $subject = Subject::find($id);
+        $tag = Tag::find($id);
 
-        $subject->title = $request->title;
-        $subject->isActive = $request->isActive;
+        $tag->name = $request->name;
+        $tag->isActive = $request->status;
 
-        $subject->save();
+        $tag->save();
     }
 
     /**
@@ -74,8 +74,8 @@ class SubjectController extends Controller
      */
     public function destroy($id)
     {
-        $subject = Subject::find($id);
+        $tag = Tag::find($id);
 
-        $subject->delete();
+        $tag->delete();
     }
 }
