@@ -14,14 +14,17 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/test', function () {
-    return 'Hello';
-});
+//Route::get('/tag/search', function () {
+//    return 'Hello';
+//});
 Auth::routes();
+Route::get('/tag/search', 'TagController@Search');
 
 Route::get('/home', 'HomeController@test');
 
 Route::resources([
     'question'=> 'QuestionController',
-    'subject'=>'SubjectController'
+    'tag'=> 'TagController',
+
 ]);
+Route::get('/tag/search', 'TagController@Search');

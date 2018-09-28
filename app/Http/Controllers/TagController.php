@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\TagRepository;
 use App\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 
 class TagController extends Controller
 {
+    protected $repository;
+
+    public function __construct(TagRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -77,5 +86,9 @@ class TagController extends Controller
         $tag = Tag::find($id);
 
         $tag->delete();
+    }
+    public function search(){
+        $tagName = Input::get('tagName');
+       return $this->repository->filter($tagName);
     }
 }
