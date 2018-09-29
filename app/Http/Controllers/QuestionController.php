@@ -3,10 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Question;
+use App\Repositories\QuestionsRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class QuestionController extends Controller
 {
+
+    protected $repository;
+
+    public function __construct(QuestionsRepository $repository)
+    {
+        $this->repository = $repository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -77,5 +88,17 @@ class QuestionController extends Controller
         $question = Question::find($id);
 
         $question->delete();
+    }
+    public function search(){
+        $question = Input::get('query');
+        return $this->repository->filter($question);
+    }
+
+    public function userQuestion(){
+        JWTAuth::parseToken()->authenticate();
+
+        $currentUser = Auth::id();
+        return $this->repository->userQuestion($currentUser);
+
     }
 }

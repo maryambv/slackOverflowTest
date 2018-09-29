@@ -8,7 +8,7 @@ class Question extends Model
 {
     protected $table = 'questions';
     protected $fillable = [
-        'tagName', 'tagStatus'
+        'questioner', 'text','status'
     ];
     public function tags()
     {

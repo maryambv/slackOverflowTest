@@ -14,17 +14,26 @@
 Route::get('/', function () {
     return view('welcome');
 });
-//Route::get('/tag/search', function () {
-//    return 'Hello';
-//});
+
+//https://www.getpostman.com/collections/a71398165f123a0645ac
+
 Auth::routes();
-Route::get('/tag/search', 'TagController@Search');
 
-Route::get('/home', 'HomeController@test');
+Route::group(['middleware' => 'web'], function () {
 
-Route::resources([
-    'question'=> 'QuestionController',
-    'tag'=> 'TagController',
+    Route::auth();
 
-]);
-Route::get('/tag/search', 'TagController@Search');
+
+    Route::get('/tag/search', 'TagController@Search');
+
+    Route::get('/question/search', 'QuestionController@Search');
+    Route::get('/question/search', 'QuestionController@Search');
+    Route::get('/question/getUserQuestion', 'QuestionController@userQuestion');
+
+
+    Route::resources([
+        'question'=> 'QuestionController',
+        'tag'=> 'TagController',
+
+    ]);
+});
